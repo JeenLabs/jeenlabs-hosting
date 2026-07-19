@@ -8,10 +8,11 @@ import { PrismaModule } from './infra/prisma/prisma.module';
 import { RedisModule } from './infra/redis/redis.module';
 import { AuditModule } from './modules/audit/audit.module';
 import { AuthMeController } from './modules/auth/auth-me.controller';
+import { CatalogModule } from './modules/catalog/catalog.module';
 import { QueueModule } from './queue/queue.module';
 
 @Module({
-  imports: [PrismaModule, RedisModule, BetterAuthModule, AuditModule, QueueModule],
+  imports: [PrismaModule, RedisModule, BetterAuthModule, AuditModule, QueueModule, CatalogModule],
   controllers: [HealthController, AuthMeController],
   providers: [
     { provide: APP_GUARD, useClass: AuthGuard },
