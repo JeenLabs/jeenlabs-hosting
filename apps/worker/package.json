@@ -1,0 +1,20 @@
+{
+  "name": "@app/worker",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "echo \"worker stub — BullMQ wiring in Phase 0\"",
+    "build": "echo \"build pending\"",
+    "start": "echo \"start pending\"",
+    "lint": "echo \"lint pending\"",
+    "typecheck": "tsc --noEmit",
+    "test": "echo \"no tests yet\""
+  },
+  "dependencies": {
+    "@app/config": "workspace:*",
+    "@app/db": "workspace:*",
+    "@app/clients": "workspace:*",
+    "@app/queue": "workspace:*",
+    "@app/types": "workspace:*"
+  }
+}
