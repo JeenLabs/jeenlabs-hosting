@@ -7,11 +7,26 @@ export const REDIS_CACHE = 'REDIS_CACHE';
 export const REDIS_SESSION = 'REDIS_SESSION';
 
 function createRedis(url: string, db: number): Redis {
-  return new Redis(url, {
+  const client = new Redis(url, {
     db,
     maxRetriesPerRequest: null,
     enableReadyCheck: true,
+    lazyConnect: true,
+    retryStrategy(times) {
+      if (times > 10) {
+        return null;
+      }
+      return Math.min(times * 200, 2000);
+    },
   });
+  client.on('error', (error) => {
+    // Avoid unhandled error spam when Redis is briefly unavailable at boot.
+    console.error('[redis]', error.message);
+  });
+  void client.connect().catch((error: Error) => {
+    console.error('[redis] initial connect failed:', error.message);
+  });
+  return client;
 }
 
 @Global()

@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "tsx watch src/main.ts",
+    "dev": "tsc-watch -p tsconfig.json --onSuccess \"node dist/main.js\"",
     "build": "tsc -p tsconfig.json",
     "start": "node dist/main.js",
     "lint": "eslint src --max-warnings=0",
@@ -20,6 +20,7 @@
     "ioredis": "^5.6.1"
   },
   "devDependencies": {
+    "tsc-watch": "^7.2.1",
     "tsx": "^4.20.3",
     "vitest": "^3.2.4"
   }

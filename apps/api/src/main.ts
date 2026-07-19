@@ -33,7 +33,8 @@ async function bootstrap(): Promise<void> {
 
   const auth = app.get<BetterAuthInstance>(BETTER_AUTH);
   const expressApp = app.getHttpAdapter().getInstance();
-  expressApp.all('/api/auth/*', toNodeHandler(auth));
+  // Express 5 / path-to-regexp v8 rejects bare `*` wildcards; use a RegExp matcher.
+  expressApp.all(/^\/api\/auth\/.*/, toNodeHandler(auth));
 
   const port = Number(process.env.API_PORT ?? 4000);
   await app.listen(port);

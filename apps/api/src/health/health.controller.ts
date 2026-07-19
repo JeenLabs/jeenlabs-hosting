@@ -7,7 +7,7 @@ import { REDIS_QUEUE } from '../infra/redis/redis.module';
 @Controller()
 export class HealthController {
   constructor(
-    private readonly prisma: PrismaService,
+    @Inject(PrismaService) private readonly prisma: PrismaService,
     @Inject(REDIS_QUEUE) private readonly redis: Redis,
   ) {}
 
