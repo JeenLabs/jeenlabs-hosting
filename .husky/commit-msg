@@ -1,0 +1,2 @@
+pnpm exec commitlint --edit "$1"
+./scripts/check-signoff-msg.sh "$1"
