@@ -1,0 +1,55 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Commitlint
+        run: |
+          if git rev-parse --verify origin/main >/dev/null 2>&1; then
+            pnpm exec commitlint --from=origin/main --to=HEAD --verbose
+          else
+            echo "No origin/main; skipping range commitlint on first push"
+          fi
+
+      - name: Sign-off check
+        run: ./scripts/check-signoff.sh origin/main HEAD
+
+      - name: Secret scan
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Typecheck
+        run: pnpm typecheck
+
+      - name: Test
+        run: pnpm test
+
+      - name: Audit
+        run: pnpm audit --audit-level=high
+
+      - name: Build
+        run: pnpm build
