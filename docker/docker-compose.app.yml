@@ -1,0 +1,4 @@
+# Box 1 — web, api, worker (production layout).
+# Filled in during Coolify / Docker setup (docs/02, docs/13).
+
+services: {}

@@ -1,0 +1,4 @@
+# Box 2 — Supabase (Postgres/Storage/Realtime) + Redis.
+# Filled in during Coolify / Docker setup (docs/02, docs/13).
+
+services: {}

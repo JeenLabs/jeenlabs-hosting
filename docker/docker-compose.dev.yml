@@ -1,0 +1,4 @@
+# Local development data tier (Postgres + Redis).
+# Full service definitions added with infra clients (Phase 0).
+
+services: {}
