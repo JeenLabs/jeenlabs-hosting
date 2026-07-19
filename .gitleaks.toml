@@ -1,0 +1,8 @@
+# gitleaks — block secrets in commits
+title = "gitleaks"
+[allowlist]
+  description = "Allowlisted paths"
+  paths = [
+    '''\.env\.example$''',
+    '''pnpm-lock\.yaml$''',
+  ]
