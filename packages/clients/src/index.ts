@@ -1,5 +1,23 @@
+export interface SupabaseClientConfig {
+  url: string;
+  serviceRoleKey: string;
+  anonKey: string;
+}
+
 /**
- * External integration clients (Contabo, Razorpay, PayPal, email).
- * Server-side only — never imported by the browser app.
+ * Supabase is used for Storage + Realtime only (not auth).
+ * Full client wiring lands when Storage/Realtime features are built.
  */
-export {};
+export function createSupabaseAdminConfig(config: SupabaseClientConfig): SupabaseClientConfig {
+  if (!config.url || !config.serviceRoleKey) {
+    return config;
+  }
+  return config;
+}
+
+export interface ContaboCredentials {
+  clientId: string;
+  clientSecret: string;
+  apiUser: string;
+  apiPassword: string;
+}
