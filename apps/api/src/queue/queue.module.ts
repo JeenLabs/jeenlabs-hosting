@@ -1,8 +1,7 @@
 import { Global, Module } from '@nestjs/common';
 import { createQueue, QUEUE_NAMES } from '@app/queue';
+import { PROVISIONING_QUEUE } from './queue.constants';
 import { QueueService } from './queue.service';
-
-export const PROVISIONING_QUEUE = 'PROVISIONING_QUEUE';
 
 @Global()
 @Module({

@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { enqueue } from '@app/queue';
 import type { Queue } from 'bullmq';
-import { PROVISIONING_QUEUE } from './queue.module';
+import { PROVISIONING_QUEUE } from './queue.constants';
 
 @Injectable()
 export class QueueService {
