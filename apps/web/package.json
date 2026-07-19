@@ -3,14 +3,17 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "echo \"web stub — Next.js wiring in Phase 0\"",
-    "build": "echo \"build pending\"",
-    "start": "echo \"start pending\"",
+    "dev": "echo \"Next.js app scaffolding deferred to Phase 1 storefront slice\"",
+    "build": "echo \"web build pending\"",
+    "start": "echo \"web start pending\"",
     "lint": "echo \"lint pending\"",
-    "typecheck": "tsc --noEmit",
-    "test": "echo \"no tests yet\""
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run --passWithNoTests"
   },
   "dependencies": {
     "@app/types": "workspace:*"
+  },
+  "devDependencies": {
+    "vitest": "^3.2.4"
   }
 }

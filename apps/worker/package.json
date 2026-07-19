@@ -3,18 +3,24 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "echo \"worker stub — BullMQ wiring in Phase 0\"",
-    "build": "echo \"build pending\"",
-    "start": "echo \"start pending\"",
-    "lint": "echo \"lint pending\"",
-    "typecheck": "tsc --noEmit",
-    "test": "echo \"no tests yet\""
+    "dev": "tsx watch src/main.ts",
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/main.js",
+    "lint": "eslint src --max-warnings=0",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run --passWithNoTests"
   },
   "dependencies": {
+    "@app/clients": "workspace:*",
     "@app/config": "workspace:*",
     "@app/db": "workspace:*",
-    "@app/clients": "workspace:*",
     "@app/queue": "workspace:*",
-    "@app/types": "workspace:*"
+    "@app/types": "workspace:*",
+    "bullmq": "^5.56.1",
+    "ioredis": "^5.6.1"
+  },
+  "devDependencies": {
+    "tsx": "^4.20.3",
+    "vitest": "^3.2.4"
   }
 }
