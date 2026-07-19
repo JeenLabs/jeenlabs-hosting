@@ -177,3 +177,98 @@ model AuditLog {
   @@index([entityType, entityId])
   @@index([createdAt])
 }
+
+// --- Catalog (Feature 3) ---
+
+enum BillingCycle {
+  monthly
+  q3
+  q6
+  q12
+}
+
+model Region {
+  id           String        @id @default(cuid())
+  code         String        @unique
+  name         String
+  enabled      Boolean       @default(true)
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  plans        Plan[]
+  contaboCosts ContaboCost[]
+}
+
+model Plan {
+  id               String      @id @default(cuid())
+  name             String
+  contaboProductId String
+  regionId         String
+  region           Region      @relation(fields: [regionId], references: [id])
+  specs            Json
+  enabled          Boolean     @default(true)
+  sortOrder        Int         @default(0)
+  createdAt        DateTime    @default(now())
+  updatedAt        DateTime    @updatedAt
+  prices           PlanPrice[]
+
+  @@index([regionId])
+  @@index([enabled, sortOrder])
+}
+
+model PlanPrice {
+  id          String       @id @default(cuid())
+  planId      String
+  plan        Plan         @relation(fields: [planId], references: [id], onDelete: Cascade)
+  billingCycle BillingCycle
+  priceMinor  Int
+  currency    String       @default("INR")
+  discountPct Int          @default(0)
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  @@unique([planId, billingCycle])
+  @@index([planId])
+}
+
+model ContaboCost {
+  id               String   @id @default(cuid())
+  contaboProductId String
+  regionId         String
+  region           Region   @relation(fields: [regionId], references: [id])
+  wholesaleMinor   Int
+  currency         String   @default("EUR")
+  fetchedAt        DateTime @default(now())
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  @@unique([contaboProductId, regionId])
+  @@index([regionId])
+}
+
+model OsImage {
+  id             String        @id @default(cuid())
+  contaboImageId String        @unique
+  name           String
+  family         String
+  enabled        Boolean       @default(true)
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+  templates      AppTemplate[]
+}
+
+model AppTemplate {
+  id              String   @id @default(cuid())
+  key             String   @unique
+  name            String
+  description     String
+  category        String
+  iconUrl         String?
+  requiredImageId String
+  requiredImage   OsImage  @relation(fields: [requiredImageId], references: [id])
+  cloudInit       String
+  enabled         Boolean  @default(true)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([enabled, category])
+}
