@@ -14,7 +14,7 @@ docker/       Compose files for app and data tiers
 
 ## Prerequisites
 
-- Node.js 20+ (see `.nvmrc`)
+- Node.js 22 or 24 (see `.nvmrc`; engines allow both)
 - pnpm
 - Docker (local Postgres/Redis via `docker/docker-compose.dev.yml`)
 

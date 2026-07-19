@@ -8,6 +8,10 @@ on:
 jobs:
   verify:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node-version: [22, 24]
     steps:
       - uses: actions/checkout@v4
         with:
@@ -17,13 +21,14 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version-file: '.nvmrc'
+          node-version: ${{ matrix.node-version }}
           cache: 'pnpm'
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
       - name: Commitlint
+        if: matrix.node-version == 22
         run: |
           if git rev-parse --verify origin/main >/dev/null 2>&1; then
             pnpm exec commitlint --from=origin/main --to=HEAD --verbose
@@ -32,9 +37,11 @@ jobs:
           fi
 
       - name: Sign-off check
+        if: matrix.node-version == 22
         run: ./scripts/check-signoff.sh origin/main HEAD
 
       - name: Secret scan
+        if: matrix.node-version == 22
         uses: gitleaks/gitleaks-action@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -49,6 +56,7 @@ jobs:
         run: pnpm test
 
       - name: Audit
+        if: matrix.node-version == 22
         run: pnpm audit --audit-level=high
 
       - name: Build
