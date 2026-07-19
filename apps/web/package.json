@@ -1,0 +1,16 @@
+{
+  "name": "@app/web",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "echo \"web stub — Next.js wiring in Phase 0\"",
+    "build": "echo \"build pending\"",
+    "start": "echo \"start pending\"",
+    "lint": "echo \"lint pending\"",
+    "typecheck": "tsc --noEmit",
+    "test": "echo \"no tests yet\""
+  },
+  "dependencies": {
+    "@app/types": "workspace:*"
+  }
+}
