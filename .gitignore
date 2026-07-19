@@ -1,0 +1,41 @@
+# Project docs and editor rules (kept local, not versioned)
+docs/
+.cursorrules
+
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+
+# Build / output
+dist/
+build/
+.next/
+out/
+coverage/
+*.tsbuildinfo
+
+# Tooling caches
+.turbo/
+.eslintcache
+.prettiercache
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.idea/
+.vscode/
+!.vscode/extensions.json
+
+# Logs / temp
+*.log
+npm-debug.log*
+pnpm-debug.log*
+tmp/
+temp/
